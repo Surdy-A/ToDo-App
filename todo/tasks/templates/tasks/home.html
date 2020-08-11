@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+        {% block content %}        
+          <div class="mx-auto bg-light">
+
+          <form method="POST" action="/">
+            <div class="form-group">
+              {% csrf_token %}
+              <p class="d-block">{{form.title}}</p>
+              <input class="btn btn-info btn-block" type="submit" name="Create Task">
+            </div>
+          
+          </form>
+
+          <ul class="list-group">
+            
+              {% for task in tasks %}
+              {% if task.complete == True %}
+              <li class="list-group-item list-group-item-info"> 
+              <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+              <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+              <strike>{{task}} </strike>
+              </li>
+                    {% else %}
+                    <li class="list-group-item list-group-item-info">
+                    <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
+                    <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+                  {{task}}
+                  </li>
+              {% endif %}
+
+              {% endfor %}
+              <li class="list-group-item list-group-item-info mx-auto b-block"> 
+              Designed by <a href="http://sodeeqajayi.pythonanywhere.com/" class=""> Surdy_A </a>2020
+              </li>
+          
+        </ul>
+        </div>
+        {% endblock content %}
+    
